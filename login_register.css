@@ -1,0 +1,185 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f7f7f7;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.login-box {
+    display: flex;
+    width: 800px;
+    height: 400px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.left-box {
+    background-color: white;
+    width: 50%;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.logo h2 {
+    margin-bottom: 40px;
+    font-weight: bold;
+}
+
+form {
+    width: 100%;
+}
+
+input {
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 25px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    background-color: #000;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #444;
+}
+
+p {
+    margin-top: auto;
+    font-size: 12px;
+    color: #888;
+}
+
+.right-box {
+    width: 50%;
+    background-color: black;
+}
+
+.right-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Media Queries */
+
+/* Mobile View (max-width: 600px) */
+@media screen and (max-width: 600px) {
+    .login-box {
+        flex-direction: column;
+        width: 100%;  /* Full width for mobile */
+        height: auto; /* Adjust height for mobile */
+    }
+
+    .left-box, .right-box {
+        width: 100%;  /* Full width for both boxes */
+        height: 250px; /* Adjust height for mobile */
+    }
+
+    .left-box {
+        padding: 20px;  /* Reduce padding for mobile */
+    }
+
+    input, button {
+        padding: 12px 0px 12px;  /* Reduce input and button padding */
+    }
+
+    .logo h2 {
+        font-size: 24px; /* Adjust logo font size */
+        margin-bottom: 20px;  /* Adjust margin for mobile */
+    }
+
+    p {
+        font-size: 10px;  /* Adjust paragraph font size */
+    }
+}
+
+/* Tablet View (601px - 1024px) */
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+    .login-box {
+        flex-direction: row;
+        width: 90%;  /* Adjust width for tablet */
+    }
+
+    .left-box, .right-box {
+        width: 50%;  /* Keep side-by-side layout */
+        height: 100%; /* Ensure full height */
+    }
+
+    .left-box {
+        padding: 30px;  /* Adjust padding for tablet */
+    }
+
+    input, button {
+        padding: 14px;  /* Adjust input and button padding */
+    }
+
+    .logo h2 {
+        font-size: 28px; /* Adjust logo font size for tablet */
+        margin-bottom: 30px;  /* Adjust margin */
+    }
+
+    p {
+        font-size: 11px;  /* Slightly increase paragraph font size */
+    }
+}
+
+/* Desktop View (min-width: 1025px) */
+@media screen and (min-width: 1025px) {
+    .login-box {
+        flex-direction: row;
+        width: 800px; /* Original width for desktop */
+    }
+
+    .left-box, .right-box {
+        width: 50%;  /* Keep side-by-side layout */
+        height: 100%; /* Maintain full height */
+    }
+
+    .left-box {
+        padding: 40px;  /* Original padding for desktop */
+    }
+
+    input, button {
+        padding: 15px;  /* Original input and button padding */
+    }
+
+    .logo h2 {
+        font-size: 32px; /* Original logo font size */
+        margin-bottom: 40px;  /* Original margin */
+    }
+
+    p {
+        font-size: 12px;  /* Original paragraph font size */
+    }
+}
