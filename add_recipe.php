@@ -11,33 +11,53 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $description = mysqli_real_escape_string($conn, $_POST['description']);
     $ingredients = mysqli_real_escape_string($conn, $_POST['ingredients']);
     
-    // file handeling
+    
 
-    $target_dir = "uploads/";  // image saving location
-    $image = $_FILES['image']['name'];  // get image name
-    $target_file = $target_dir . basename($image);  //path for image
+    $target_dir = "uploads/";  
+    $image = $_FILES['image']['name'];  
+    $target_file = $target_dir . basename($image); 
 
-    //validation of image
+
     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
     $valid_extensions = array("jpg", "jpeg", "png", "gif");
     if (in_array($imageFileType, $valid_extensions)) {
-        // Move the uploaded image to the target location
+       
         if (move_uploaded_file($_FILES['image']['tmp_name'], $target_file)) {
-            // insert data with image path
-            //images are saved in uploads folder located on project root
+            
             $sql = "INSERT INTO recipes (title, description, ingredients, image) 
                     VALUES ('$title', '$description', '$ingredients', '$image')";
 
             if ($conn->query($sql) === TRUE) {
-                echo "New recipe added successfully";
+               
+                echo "<script type='text/javascript'>
+                alert('New recipe added successfully!');
+                window.location.href = 'add_recipe.php';
+              </script>";
+              exit;
+        exit;
             } else {
-                echo "Error: " . $sql . "<br>" . $conn->error;
+                
+                echo "<script type='text/javascript'>
+                alert('Failled to add recipe!.$sql .<br>.$conn->error');
+                window.location.href = 'add_recipe.php';
+              </script>";
+              exit;
             }
         } else {
-            echo "Sorry, there was an error uploading your image.";
+           
+            echo "<script type='text/javascript'>
+                alert('Sorry, there was an error uploading your image.');
+                window.location.href = 'add_recipe.php';
+              </script>";
+              exit;
         }
     } else {
-        echo "Invalid file format. Please upload JPG, JPEG, PNG, or GIF files.";
+        
+        echo "<script type='text/javascript'>
+                alert('Invalid file format. Please upload JPG, JPEG, PNG, or GIF files.');
+                window.location.href = 'add_recipe.php';
+              </script>";
+              exit;
     }
 }
 
@@ -72,7 +92,11 @@ $conn->close();
                     <textarea name="ingredients" placeholder="Recipe Ingredients" rows="4" required></textarea>
                     <input type="file" name="image" accept="image/*" required> <!-- New image input -->
                     <button type="submit">Add Recipe</button>
+                    
+                    <button type="button" onclick="window.location.href='admin_dashboard.php?'">Go to Dashboard</button>
+                    
                 </form>
+                
 
                 
                

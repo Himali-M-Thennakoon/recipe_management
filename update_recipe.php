@@ -13,20 +13,23 @@ if (isset($_GET['id'])) {
     if ($result->num_rows > 0) {
         $recipe = $result->fetch_assoc();
     } else {
-        echo "Recipe not found";
-        exit;
+        echo "<script type='text/javascript'>
+                alert('Recipe not found.');
+                window.location.href = 'update_recipe.php';
+              </script>";
+              exit;
     }
 }
 
-// Update the recipe
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = mysqli_real_escape_string($conn, $_POST['title']);
     $description = mysqli_real_escape_string($conn, $_POST['description']);
     $ingredients = mysqli_real_escape_string($conn, $_POST['ingredients']);
 
-    $image = $recipe['image']; // Default to the existing image
+    $image = $recipe['image']; 
 
-    // Check if a new image is uploaded
+    
     if ($_FILES['image']['name']) {
         $target_dir = "uploads/";
         $image = $_FILES['image']['name'];
@@ -37,19 +40,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (in_array($imageFileType, $valid_extensions)) {
             move_uploaded_file($_FILES['image']['tmp_name'], $target_file);
         } else {
-            echo "Invalid file format. Please upload JPG, JPEG, PNG, or GIF files.";
+            
+            echo "<script type='text/javascript'>
+                alert('Invalid file format. Please upload JPG, JPEG, PNG, or GIF files.');
+                window.location.href = 'update_recipe.php';
+              </script>";
+              exit;
         }
     }
 
-    // Update recipe query
+    
     $sql = "UPDATE recipes SET title='$title', description='$description', ingredients='$ingredients', image='$image' WHERE id=$id";
 
     if ($conn->query($sql) === TRUE) {
-        echo "Recipe updated successfully";
-        header("Location: listrecipe.php"); // Redirect back to the recipe list
+        echo "<script type='text/javascript'>
+        alert('Recipe updated successfully!');
+        window.location.href = 'list_recipes.php';
+      </script>";
+      exit;
         exit;
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "<script type='text/javascript'>
+        alert('Failed to update recipe! $sql <br> $conn->error');
+        window.location.href = 'update_recipe.php';
+      </script>";
+      exit;
     }
 }
 
@@ -78,6 +93,7 @@ $conn->close();
                     <textarea name="ingredients" placeholder="Recipe Ingredients" rows="4" required><?php echo $recipe['ingredients']; ?></textarea>
                     <input type="file" name="image" accept="image/*"> <!-- Optional new image -->
                     <button type="submit">Update Recipe</button>
+                    <button type="button" onclick="window.location.href='listrecipe.php?'">Go to Recipe List</button>
                 </form>
             </div>
             <div class="right-box">
