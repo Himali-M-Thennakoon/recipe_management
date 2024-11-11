@@ -24,7 +24,7 @@ $result = $conn->query($sql);
         <i class="fa-solid fa-bars" id="menu-icon"></i>
         <nav class="navbar" id="navbar">
             <a href="#Home" class="active">Home</a>
-            <a href="#about">About</a>
+            <a href="about.html" class="active">About</a>
             <a href="#contact">Contact</a>
             <a href="index.html" class="btn logout-btn">Logout</a>
         </nav>
@@ -35,24 +35,24 @@ $result = $conn->query($sql);
     <div class="banner">
         <div class="slideshow-container">
             <div class="mySlides fade">
-                <div class="numbertext">1/3</div>
-                <img src="assets/banner1.jpg" alt="Delicious meal image">
+                
+                <img src="assets/banner1.png" alt="Delicious meal image">
                 <div class="text">
                     <p>Unleash your inner chef with our expert recipe guidance, turning everyday meals into extraordinary creations.</p>
                     <a href="#cards-container"><button class="slide-btn">Read More</button></a>
                 </div>
             </div>
             <div class="mySlides fade">
-                <div class="numbertext">2/3</div>
-                <img src="assets/banner2.jpg" alt="Exquisite dish">
+                
+                <img src="assets/banner2.png" alt="Exquisite dish">
                 <div class="text">
                     <p>From beginners to pros, our curated recipes will inspire you to master the art of cooking delicious dishes.</p>
                     <a href="#cards-container"><button class="slide-btn">Read More</button></a>
                 </div>
             </div>
             <div class="mySlides fade">
-                <div class="numbertext">3/3</div>
-                <img src="assets/banner3.jpg" alt="Perfectly cooked meal">
+               
+                <img src="assets/banner3.png" alt="Perfectly cooked meal">
                 <div class="text">
                     <p>Bring your kitchen to life with our step-by-step recipes, designed to make every meal a flavorful experience.</p>
                     <a href="#cards-container"><button class="slide-btn">Read More</button></a>

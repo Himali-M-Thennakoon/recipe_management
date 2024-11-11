@@ -1,6 +1,6 @@
 <?php
 
-
+// Include the config file for the database connection
 include 'config.php';
 
 if (isset($_GET['id'])) {

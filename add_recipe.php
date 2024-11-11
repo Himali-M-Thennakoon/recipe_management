@@ -11,10 +11,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $description = mysqli_real_escape_string($conn, $_POST['description']);
     $ingredients = mysqli_real_escape_string($conn, $_POST['ingredients']);
     
+    // file handeling
 
-    $target_dir = "uploads/";  
-    $image = $_FILES['image']['name'];  
-    $target_file = $target_dir . basename($image);  
+    $target_dir = "uploads/";  // image saving location
+    $image = $_FILES['image']['name'];  // get image name
+    $target_file = $target_dir . basename($image);  //path for image
 
     //validation of image
     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));

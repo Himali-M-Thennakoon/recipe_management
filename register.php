@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($result->num_rows > 0) {
       
-        echo "<script>alert('this Username is unvailable use Another.'); window.location.href='register.php';</script>";
+        echo "<script>alert('Invalid Username use Another.'); window.location.href='register.php';</script>";
     } else {
         $userType = 'user';
 
@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recipe Management System Registration</title>
+    <title>MixBowls Registration</title>
     <link rel="stylesheet" href="login_register.css">
 </head>
 <body>
@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="login-box">
             <div class="left-box">
                 <div class="logo">
-                    <h2>MixBowls</h2>
+                    <h2>Register User</h2>
                 </div>
                 <form action="register.php" method="POST">
                     <input type="text" name="username" placeholder="Username" required>

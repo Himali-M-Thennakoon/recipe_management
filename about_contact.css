@@ -1,0 +1,145 @@
+/* General CSS for About Us Page */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    scroll-behavior: smooth;
+    font-family: 'Nunito', sans-serif;
+}
+
+:root {
+    --bg-color: #090000cf;
+    --snd-bf-color: #262B40;
+    --text-color: #d2b40b;
+    --main-color: #59B2f4;
+}
+
+html {
+    font-size: 62.5%;
+    overflow-x: hidden;
+}
+
+body {
+    background: var(--bg-color);
+    color: var(--text-color);
+    padding-top: 120px; /* Adjust for the fixed header */
+}
+
+/* Header */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 2rem 9%;
+    background: var(--bg-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 2.5rem;
+    color: var(--text-color);
+    font-weight: 700;
+    cursor: default;
+}
+
+/* Navbar links */
+.navbar a {
+    font-size: 1.5rem;
+    color: var(--text-color);
+    margin-left: 4rem;
+    font-weight: 700;
+}
+
+.navbar a:hover,
+.navbar a.active {
+    color: var(--text-color);
+}
+
+/* Menu icon - hidden by default */
+#menu-icon {
+    font-size: 3.6rem;
+    color: var(--text-color);
+    display: none;
+}
+
+/* About Us Section */
+.about-us {
+    margin: 20px;
+    padding: 20px;
+}
+
+.about-us h2 {
+    text-align: center;
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    color: var(--text-color);
+}
+
+.about-us p {
+    text-align: center;
+    font-size: 2rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+/* Mission, Vision, and Team Section Styles */
+.mission, .vision, .team {
+    margin: 20px;
+    padding: 20px;
+    background-color: #ffffffed;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mission h3, .vision h3, .team h3 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color:black;
+}
+
+.mission p, .vision p, .team p {
+
+    text-align: center;
+    font-size: 1.6rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+/* Mobile View */
+@media screen and (max-width: 768px) {
+    body {
+        padding-top: 150px; /* Adjust for header */
+    }
+
+    .header {
+        padding: 1.5rem 5%;
+    }
+
+    .navbar a {
+        font-size: 1.3rem;
+        margin-left: 2rem;
+    }
+
+    .about-us {
+        margin: 15px;
+        padding: 15px;
+    }
+
+    .mission, .vision, .team {
+        margin: 15px;
+        padding: 15px;
+    }
+
+    .about-us h2, .mission h3, .vision h3, .team h3 {
+        font-size: 2rem;
+    }
+}

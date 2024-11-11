@@ -1,5 +1,5 @@
 <?php
-$servername = "localhost"; 
+$servername = "localhost"; // or your server name
 $username = "root";
 $password = '';
 $dbname = "recipe_management";

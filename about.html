@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="about_contact.css">
+    <title>About Us</title>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <a href="#" class="logo">Recipes</a>
+        <i class="fa-solid fa-bars" id="menu-icon"></i>
+        <nav class="navbar" id="navbar">
+            <a href="view_recipe.php">Home</a>
+            <a href="about.html" class="active">About</a>
+            <a href="contact.php">Contact</a>
+            <a href="index.html" class="btn logout-btn">Logout</a>
+        </nav>
+    </header>
+
+    <!-- About Us Section -->
+    <div class="about-us">
+        <h2>About Us</h2>
+        <p>Welcome to our recipe management platform! We are dedicated to helping you find and create delicious meals that suit every taste and skill level. Our curated collection of recipes is designed to guide both beginners and expert chefs in their culinary adventures.</p>
+    </div>
+
+    <!-- Mission Section -->
+    <div class="mission">
+        <h3>Our Mission</h3>
+        <p>Our mission is to provide easy-to-follow, innovative recipes that inspire home cooks to experiment and enjoy the art of cooking. We believe that great meals start with great ingredients, and we're here to help you find them!</p>
+    </div>
+
+    <!-- Vision Section -->
+    <div class="vision">
+        <h3>Our Vision</h3>
+        <p>We envision a world where cooking is accessible to everyone, and every meal brings people together. We aim to be the go-to resource for anyone looking to expand their culinary skills and make every meal special.</p>
+    </div>
+
+    <!-- Team Section -->
+    <div class="team">
+        <h3>Our Team</h3>
+        <p>Our team consists of experienced chefs, food enthusiasts, and developers who are passionate about food and technology. Together, we're creating a platform that offers the best recipes from around the world.</p>
+    </div>
+
+    <script>
+        const menuIcon = document.getElementById('menu-icon');
+        const navbar = document.getElementById('navbar');
+
+        menuIcon.addEventListener('click', function() {
+            navbar.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

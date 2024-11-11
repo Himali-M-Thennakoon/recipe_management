@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="login-box">
             <div class="left-box">
                 <div class="logo">
-                    <h2>Recipe Management System</h2>
+                    <h2>Login</h2>
                 </div>
                 <form action="" method="POST">
                     <input type="text" name="username" placeholder="Username" required>
