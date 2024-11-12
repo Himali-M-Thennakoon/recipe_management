@@ -1,165 +1,128 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    text-decoration: none;
-    border: none;
-    outline: none;
-    scroll-behavior: smooth;
     font-family: 'Nunito', sans-serif;
 }
 
-:root{
-    --bg-color:#090000cf;
-    --snd-bf-color:#262B40;
-    --text-color:#d2b40b;
-    --main-color:#59B2f4;
-    --card-bg-color: #f7f7f7; /* Softer card background */
-    --card-text-color: #333;   /* Darker text for cards */
-    --card-heading-color: #d78700; /* Subtle orange for headings */
+:root {
+    --bg-color: #090000cf;
+    --snd-bg-color: #262B40;
+    --text-color: #d2b40b;
+    --main-color: #59B2f4;
 }
 
-html{
-    font-size: 62.5%;
-    overflow-x: hidden;
-}
-
-body{
+body {
     background: var(--bg-color);
     color: var(--text-color);
 }
 
-.header{
-    position: fixed;  
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 2rem 9%;
-    background: var(--bg-color);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 100;
-}
-
-.logo{
-    font-size: 2.5rem;
-    color: var(--text-color);
-    font-weight: 700;
-    cursor: default;
-}
-
-.navbar a{
-    font-size: 1.5rem;
-    color: var(--text-color);
-    margin-left: 4rem;
-    font-weight: 700;
-}
-
-.navbar a:hover,
-.navbar a.active{
-    color: var(--text-color);
-}
-
-#menu-icon{
-    font-size: 3.6rem;
-    color: var(--text-color);
-    display: none;
-}
-
-/* General container for all cards */
-.cards-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-    margin: 20px;
-}
-
-/* Individual card styling */
-.card {
-    background-color: var(--card-bg-color); /* Softer background for cards */
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    transition: transform 0.2s ease-in-out;
-}
-
-/* Hover effect for cards */
-.card:hover {
-    transform: scale(1.05);
-}
-
-/* Image in the card */
-.card-img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-}
-
-/* Card content styling */
-.card-body {
-    padding: 15px;
-}
-
-.card-title {
-    font-size: 18px;
-    font-weight: bold;
-    color: var(--card-heading-color); /* Subtle orange for card titles */
-    margin: 0 0 10px;
-}
-
-.card-text {
-    font-size: 14px;
-    color: var(--card-text-color); /* Darker text color */
-}
-
-/* Link styling */
-.recipe-link {
-    text-decoration: none;
-    color: inherit;
-}
-
-/* Recipe detail view */
 .recipe-detail-container {
+    margin-top: 20px;
+    margin: 6rem auto;
+    width: 70%;
+    background: #fff;
+    color: #333;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    padding: 2rem;
+}
+
+.recipe-title {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--snd-bg-color);
+}
+
+.recipe-image-container {
     display: flex;
     justify-content: center;
-    margin-top: 50px;
-}
-
-.recipe-detail-card {
-    max-width: 800px;
-    background: var(--card-bg-color); /* Softer background */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    margin: 2rem 0;
 }
 
 .recipe-detail-img {
     width: 100%;
-    height: auto;
-    border-radius: 10px;
+    max-width: 600px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.recipe-detail-body {
-    padding: 20px;
+.recipe-description-section, .recipe-ingredients-section {
+    margin-bottom: 2rem;
 }
 
-.recipe-description {
-    margin-top: 20px;
-    font-size: 16px;
-    line-height: 1.6;
-    color: var(--card-text-color); /* Softer text color */
+.recipe-description-section h2, .recipe-ingredients-section h2 {
+    font-size: 2rem;
+    color: var(--main-color);
+    margin-bottom: 0.5rem;
 }
 
-.recipe-ingredients {
-    margin-top: 20px;
-    font-size: 18px;
-    font-weight: bold;
-    color: var(--card-heading-color); /* Subtle orange for ingredient headings */
+.comments-section {
+    width: 70%;
+    margin: 2rem auto;
+    padding: 1rem;
+    background: var(--snd-bg-color);
+    border-radius: 8px;
+    color: var(--text-color);
 }
 
-/* For headings in the recipe detail */
-h1, h2 {
-    color: var(--card-heading-color); /* Consistent heading color */
+.comment-form textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 4px;
+    resize: vertical;
+    margin-bottom: 1rem;
+}
+
+.comment-form button {
+    padding: 0.5rem 1rem;
+    border: none;
+    background: var(--main-color);
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+
+}
+
+.comment-form button:hover {
+    background: var(--text-color);
+}
+
+.rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    padding: 1rem 0;
+}
+
+.rating input[type="radio"] {
+    display: none;
+}
+
+.rating label {
+    font-size: 2rem;
+    color: #ddd;
+    cursor: pointer;
+}
+
+.rating input:checked ~ label,
+.rating label:hover,
+.rating label:hover ~ label {
+    color: #ffc107;
+}
+
+.star-rating .fa-star {
+    color: #ddd;
+}
+
+.star-rating .checked {
+    color: #ffc107;
+}
+
+.approved-comments .comment {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #444;
 }

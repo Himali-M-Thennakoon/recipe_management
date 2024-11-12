@@ -1,3 +1,7 @@
+<?php 
+include 'config.php';
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,19 +9,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="about_contact.css">
+    <link rel ="stylesheet" href="navbar.css">
     <title>About Us</title>
 </head>
 <body>
     <!-- Header -->
     <header class="header">
-        <a href="#" class="logo">Recipes</a>
-        <i class="fa-solid fa-bars" id="menu-icon"></i>
-        <nav class="navbar" id="navbar">
-            <a href="view_recipe.php">Home</a>
-            <a href="about.html" class="active">About</a>
-            <a href="contact.php">Contact</a>
-            <a href="index.html" class="btn logout-btn">Logout</a>
+        <h1 class="logo">Recipe Details</h1>
+        <nav class="navbar">
+            <a href="view_recipe.php?">Home</a>
+            <a href="about.html">About</a>
+            <a href="#contact">Contact</a>
+            <?php if (isset($_SESSION['username'])): ?>
+                <a href="logout.php" class="btn logout-btn">Logout</a>
+            <?php else: ?>
+                <a href="login.php" class="btn login-btn">Login</a>
+            <?php endif; ?>
         </nav>
+        <div class="user-data-div">  
+            <a href="#">
+                <img src="https://img.freepik.com/free-psd/3d-illustration-person-with-long-hair_23-2149436197.jpg" alt="useravatar" class="user-avatar">
+            </a>
+            <span class="user-info"><?php echo htmlspecialchars($_SESSION['username'] ?? ''); ?></span>
+            
+            <?php if (isset($_SESSION['username'])): ?>
+                <a href="logout.php"><img class="logout-png" src="assets/logout.png" alt=""></a>
+            <?php else: ?>
+                <a href="login.php" class="btn login-btn">Login</a>
+            <?php endif; ?>
+            
+        </div>
     </header>
 
     <!-- About Us Section -->

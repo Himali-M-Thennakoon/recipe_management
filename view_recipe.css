@@ -1,24 +1,15 @@
+/* General Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    text-decoration: none;
-    border: none;
-    outline: none;
-    scroll-behavior: smooth;
     font-family: 'Nunito', sans-serif;
 }
 
 :root {
     --bg-color: #090000cf;
-    --snd-bf-color: #262B40;
     --text-color: #d2b40b;
     --main-color: #59B2f4;
-}
-
-html {
-    font-size: 62.5%;
-    overflow-x: hidden;
 }
 
 body {
@@ -26,97 +17,53 @@ body {
     color: var(--text-color);
 }
 
-/* Header */
-.header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 2rem 9%;
-    background: var(--bg-color);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 100;
-}
 
-.logo {
-    font-size: 2.5rem;
-    color: var(--text-color);
-    font-weight: 700;
-    cursor: default;
-}
-
-/* Navbar links */
-.navbar a {
-    font-size: 1.5rem;
-    color: var(--text-color);
-    margin-left: 4rem;
-    font-weight: 700;
-}
-
-.navbar a:hover,
-.navbar a.active {
-    color: var(--text-color);
-}
-
-/* Menu icon - hidden by default */
-#menu-icon {
-    font-size: 3.6rem;
-    color: var(--text-color);
-    display: none;
-}
-
+/* Banner and Slideshow */
 .banner {
     margin-top: 120px;
     width: 100vw;
 }
 
 .slideshow-container {
-    object-fit:cover;
     background-color: #fff;
-    width: calc(100vw - 16px);
+    width: 100%;
     max-width: 100%;
     margin: auto;
     position: relative;
 }
 
 .mySlides {
-    height: 700px;
+    height: 500px; 
     display: none;
-
 }
 
 .mySlides img {
-    object-fit:cover;
+    object-fit: cover;
     width: 100%;
-    height: 700px;
+    height: 100%;
 }
 
 .prev, .next {
     cursor: pointer;
     position: absolute;
     top: 50%;
-    width: auto;
-    margin-top: -22px;
-    padding: 16px;
     color: #fff;
-    font-weight: bold;
-    font-size: 18px;
-    transition: 0.6s ease-in-out;
-    border-radius: 0 3px 3px 0;
-    user-select: none;
+    font-size: 2rem;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    transition: background 0.3s;
 }
 
 .next {
     right: 0;
-    border-radius: 3px 0 0 3px;
 }
 
 .prev:hover, .next:hover {
-    background-color: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.8);
 }
 
+/* Slide Text */
 .text {
     color: #f2f2f2;
     font-size: 20px;
@@ -128,11 +75,9 @@ body {
     width: 40%;
     text-align: left;
     font-weight: 600;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
     background: rgba(0, 0, 0, 0.6);
     box-shadow: 0 0 20px #000;
 }
-
 .slide-btn {
     margin-top: 60px;
     padding: 10px 20px;
@@ -146,9 +91,8 @@ body {
 }
 
 .slide-btn:hover {
-    background-color: #ff7f50;
+    background-color: #c34416;
 }
-
 /* Cards Container */
 .cards-container {
     display: grid;
@@ -197,7 +141,8 @@ body {
     color: inherit;
 }
 
-/* Mobile View - for screens smaller than 600px */
+
+/* Mobile View */
 @media screen and (max-width: 600px) {
     .header {
         padding: 1rem 5%;
@@ -221,109 +166,25 @@ body {
         display: flex;
     }
 
-    .navbar a {
-        font-size: 1.2rem;
-        margin-left: 0;
-        padding: 1rem 0;
-        text-align: center;
-    }
-
     #menu-icon {
         display: block;
-    }
-
-    .banner {
-        margin-top: 90px;
-    }
-
-    .mySlides {
-        height: 250px;
-    }
-
-    .mySlides img {
-        height: 250px;
-    }
-
-    .text {
-        font-size: 16px;
-        width: 70%;
-    }
-
-    .cards-container {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* Tablet View - for screens between 600px and 1024px */
-@media screen and (min-width: 601px) and (max-width: 1024px) {
-    .header {
-        padding: 1.5rem 8%;
-    }
-
-    .logo {
-        font-size: 2.2rem;
-    }
-
-    .navbar a {
-        font-size: 1.4rem;
-        margin-left: 3rem;
-    }
-
-    .banner {
-        margin-top: 100px;
-    }
-
-    .mySlides {
-        height: 300px;
-    }
-
-    .mySlides img {
-        height: 300px;
-    }
-
-    .text {
-        font-size: 18px;
-        width: 50%;
-    }
-
-    .cards-container {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-/* Large Screens (Laptop/Desktop) - for screens larger than 1024px */
-@media screen and (min-width: 1025px) {
-    .header {
-        padding: 2rem 9%;
-    }
-
-    .logo {
         font-size: 2.5rem;
-    }
-
-    .navbar a {
-        font-size: 1.5rem;
-        margin-left: 4rem;
-    }
-
-    .banner {
-        margin-top: 120px;
+        color: var(--text-color);
+        cursor: pointer;
     }
 
     .mySlides {
-        height: 400px;
+        height: 300px; 
+    }
+}
+
+/* Tablet and Desktop */
+@media screen and (min-width: 601px) {
+    #menu-icon {
+        display: none; 
     }
 
-    .mySlides img {
-        height: 400px;
-    }
-
-    .text {
-        font-size: 20px;
-        width: 40%;
-    }
-
-    .cards-container {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    .navbar {
+        display: flex;
     }
 }
