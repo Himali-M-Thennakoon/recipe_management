@@ -1,5 +1,4 @@
 <?php
-
 // Include the config file for the database connection
 include 'config.php';
 
@@ -12,24 +11,29 @@ if (isset($_GET['id'])) {
 
     if ($result->num_rows > 0) {
         $recipe = $result->fetch_assoc();
+        $recipe_category = $recipe['category'];  // Single category as a string
     } else {
         echo "<script type='text/javascript'>
                 alert('Recipe not found.');
                 window.location.href = 'update_recipe.php';
               </script>";
-              exit;
+        exit;
     }
 }
-
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = mysqli_real_escape_string($conn, $_POST['title']);
     $description = mysqli_real_escape_string($conn, $_POST['description']);
     $ingredients = mysqli_real_escape_string($conn, $_POST['ingredients']);
+    $video = mysqli_real_escape_string($conn, $_POST['video']);
+    $difficulty = mysqli_real_escape_string($conn, $_POST['difficulty']);
+    $image = $recipe['image'];
 
-    $image = $recipe['image']; 
 
-    
+    $category = mysqli_real_escape_string($conn, $_POST['category']);
+    $tags = mysqli_real_escape_string($conn, $_POST['tags']);
+
+    // Check if a new image file was uploaded
     if ($_FILES['image']['name']) {
         $target_dir = "uploads/";
         $image = $_FILES['image']['name'];
@@ -40,31 +44,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (in_array($imageFileType, $valid_extensions)) {
             move_uploaded_file($_FILES['image']['tmp_name'], $target_file);
         } else {
-            
             echo "<script type='text/javascript'>
                 alert('Invalid file format. Please upload JPG, JPEG, PNG, or GIF files.');
                 window.location.href = 'update_recipe.php';
               </script>";
-              exit;
+            exit;
         }
     }
 
-    
-    $sql = "UPDATE recipes SET title='$title', description='$description', ingredients='$ingredients', image='$image' WHERE id=$id";
+    // Update the SQL query to include the video, difficulty, and category columns
+    $sql = "UPDATE recipes SET title='$title', description='$description', ingredients='$ingredients', 
+            image='$image', video='$video', difficulty='$difficulty', category='$category', tags='$tags' WHERE id=$id";
 
     if ($conn->query($sql) === TRUE) {
         echo "<script type='text/javascript'>
         alert('Recipe updated successfully!');
-        window.location.href = 'list_recipes.php';
+        window.location.href = 'listrecipe.php';
       </script>";
-      exit;
         exit;
     } else {
         echo "<script type='text/javascript'>
-        alert('Failed to update recipe! $sql <br> $conn->error');
+        alert('Failed to update recipe! " . $conn->error . "');
         window.location.href = 'update_recipe.php';
       </script>";
-      exit;
+        exit;
     }
 }
 
@@ -92,8 +95,27 @@ $conn->close();
                     <textarea name="description" placeholder="Recipe Description" rows="4" required><?php echo $recipe['description']; ?></textarea>
                     <textarea name="ingredients" placeholder="Recipe Ingredients" rows="4" required><?php echo $recipe['ingredients']; ?></textarea>
                     <input type="file" name="image" accept="image/*"> <!-- Optional new image -->
+                    <input type="text" name="video" placeholder="Video Link" value="<?php echo $recipe['video']; ?>"> <!-- New video link input -->
+                    <input type="text" name="difficulty" placeholder="Difficulty Level" value="<?php echo $recipe['difficulty']; ?>" required>
+
+                    <!-- Single-Select Dropdown for Category -->
+                    <div class="form-group">
+                        <label for="category">Select Category:</label>
+                        <select name="category" id="category" class="form-control" required>
+                            <option value="">Select a Category</option>
+                            <option value="Breakfast" <?php echo ($recipe_category == 'Breakfast') ? 'selected' : ''; ?>>Breakfast</option>
+                            <option value="Lunch" <?php echo ($recipe_category == 'Lunch') ? 'selected' : ''; ?>>Lunch</option>
+                            <option value="Dinner" <?php echo ($recipe_category == 'Dinner') ? 'selected' : ''; ?>>Dinner</option>
+                            <option value="Dessert" <?php echo ($recipe_category == 'Dessert') ? 'selected' : ''; ?>>Dessert</option>
+                            <option value="Snack" <?php echo ($recipe_category == 'Snack') ? 'selected' : ''; ?>>Snack</option>
+                            <option value="Salad" <?php echo ($recipe_category == 'Salad') ? 'selected' : ''; ?>>Salad</option>
+                            <option value="Beverage" <?php echo ($recipe_category == 'Beverage') ? 'selected' : ''; ?>>Beverage</option>
+                            <option value="Vegan" <?php echo ($recipe_category == 'Vegan') ? 'selected' : ''; ?>>Vegan</option>
+                        </select>
+                    </div>
+                    <textarea name="tags" placeholder="tags" rows="4" required><?php echo $recipe['tags']; ?></textarea>
                     <button type="submit">Update Recipe</button>
-                    <button type="button" onclick="window.location.href='listrecipe.php?'">Go to Recipe List</button>
+                    <button type="button" onclick="window.location.href='listrecipe.php'">Go to Recipe List</button>
                 </form>
             </div>
             <div class="right-box">

@@ -20,7 +20,7 @@ $comment_count_query = "SELECT COUNT(*) as total_comments FROM comments WHERE st
 $comment_result = $conn->query($comment_count_query);
 $comment_count = ($comment_result && $comment_result->num_rows > 0) ? $comment_result->fetch_assoc()['total_comments'] : 0;
 
-// Fetch pending comments
+
 $pending_comments_query = "SELECT id, username, comment, rating, recipeid FROM comments WHERE status = 'pending'";
 $pending_comments_result = $conn->query($pending_comments_query);
 ?>
@@ -173,7 +173,7 @@ $pending_comments_result = $conn->query($pending_comments_query);
                 <p>No pending comments to display.</p>
                 <?php endif; ?>
             </section>
-            
+
             <!-- Settings Section -->
             <section class="section" id="settings" style="display: none;">
                 <h2>Settings</h2>

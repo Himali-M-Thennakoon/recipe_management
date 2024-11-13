@@ -10,10 +10,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh; /* Ensures full viewport height */
+    min-height: 100vh;
     background-color: #f7f7f7;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
 }
 
 /* Container */
@@ -21,20 +19,21 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 90%;  /* Adjust to prevent overflow on smaller screens */
-    max-width: 900px;  /* Limits max width */
-    height: 600px;  /* Adjusted height */
+    width: 90%;
+    max-width: 1300px; /* Increased max-width for more space */
+    height: auto;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     overflow: hidden;
     background-color: white;
 }
 
-/* Login Box (Flex Child) */
+/* Login Box */
 .login-box {
     display: flex;
     width: 100%;
-    height: 100%; /* Matches the height of the container */
+    height: auto;
+    flex-direction: row;
 }
 
 /* Left Box */
@@ -45,13 +44,13 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    background-color: white;
 }
 
 .logo h2 {
     margin-bottom: 20px;
     font-weight: bold;
     color: #333;
+    font-size: 24px;
 }
 
 /* Form Styles */
@@ -59,9 +58,9 @@ form {
     width: 100%;
 }
 
-input, textarea {
+input, textarea, select {
     width: 100%;
-    padding: 15px;
+    padding: 12px;
     margin: 10px 0;
     border-radius: 25px;
     border: 1px solid #ccc;
@@ -69,18 +68,46 @@ input, textarea {
     transition: border-color 0.3s ease;
 }
 
-input:focus, textarea:focus {
+input:focus, textarea:focus, select:focus {
     border-color: #888;
 }
 
 textarea {
     resize: none;
-    height: 100px; /* Adjust height for text area */
+    height: 100px;
 }
 
+select {
+    background-color: #fff;
+    color: #333;
+    border-radius: 25px;
+    padding: 12px;
+}
+
+/* Category Group Styles (Checkbox Grid) */
+.category-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Responsive grid layout */
+    gap: 15px;
+    margin: 10px 0;
+    width: 100%;
+}
+
+.category-group label {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    color: #333;
+}
+
+.category-group input {
+    margin-right: 10px;
+}
+
+/* Button Styles */
 button {
     width: 100%;
-    padding: 15px;
+    padding: 12px;
     background-color: #000;
     color: white;
     border: none;
@@ -94,20 +121,13 @@ button:hover {
     background-color: #444;
 }
 
-p {
-    margin-top: auto;
-    font-size: 12px;
-    color: #888;
-}
-
-/* Right Box */
 .right-box {
     width: 50%;
     background-color: black;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden; /* Ensure no overflow */
+    overflow: hidden;
 }
 
 .right-box img {
@@ -115,20 +135,31 @@ p {
     height: 100%;
     object-fit: cover;
 }
-/* Dashboard Button Styles */
-.dashboard-button {
-    display: inline-block;
-    width: 100%;
-    text-align: center;
-    padding: 15px;
-    background-color: #007bff; /* Blue color */
+.select2-container .select2-selection--multiple .select2-selection__choice {
+    background-color: #007bff; /* Bootstrap primary color */
     color: white;
-    border-radius: 25px;
-    text-decoration: none;
-    margin-top: 10px;
-    transition: background-color 0.3s ease;
+    padding: 5px;
+    margin: 2px;
+    border-radius: 4px;
 }
 
-.dashboard-button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .login-box {
+        flex-direction: column;
+    }
+
+    .left-box, .right-box {
+        width: 100%;
+    }
+
+    .category-group {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    button {
+        padding: 15px;
+    }
 }

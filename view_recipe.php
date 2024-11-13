@@ -6,18 +6,25 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-
+// Search feature
 $searchQuery = "";
+$searchQuery = "";
+$sql = "SELECT id, title, description, image FROM recipes";
+
 if (isset($_GET['search'])) {
     $searchQuery = $_GET['search'];
-    $sql = "SELECT id, title, description, image FROM recipes WHERE title LIKE ?";
+    
+    
+    $sql .= " WHERE title LIKE ? OR tags LIKE ? OR ingredients LIKE ? OR category LIKE ?";
+    
     $stmt = $conn->prepare($sql);
+    
+   
     $searchParam = "%" . $searchQuery . "%";
-    $stmt->bind_param("s", $searchParam);
+    $stmt->bind_param("ssss", $searchParam, $searchParam, $searchParam, $searchParam);
     $stmt->execute();
     $result = $stmt->get_result();
 } else {
-    $sql = "SELECT id, title, description, image FROM recipes";
     $result = $conn->query($sql);
 }
 ?>
@@ -46,21 +53,33 @@ if (isset($_GET['search'])) {
                 <input type="text" name="search" placeholder="Search recipes..." value="<?php echo htmlspecialchars($searchQuery); ?>" />
                 <button type="submit"><i class="fa fa-search"></i></button>
             </form>
-
-            
         </nav>
-        <div class="user-data-div">  
-            <a href="#">
+        
+        <!-- User Info Section -->
+        <div class="user-data-div">
+            <a href="#" id="user-avatar">
                 <img src="https://img.freepik.com/free-psd/3d-illustration-person-with-long-hair_23-2149436197.jpg" alt="useravatar" class="user-avatar">
             </a>
             <span class="user-info"><?php echo htmlspecialchars($_SESSION['username'] ?? ''); ?></span>
             
-            <?php if (isset($_SESSION['username'])): ?>
-                <a href="logout.php"><img class="logout-png" src="assets/logout.png" alt=""></a>
+            
+        </div>
+
+        <!-- Slide-out Menu (Initially Hidden) -->
+        <div id="slide-menu" class="slide-menu">
+            <div class="slide-menu-content">
+                <img src="https://img.freepik.com/free-psd/3d-illustration-person-with-long-hair_23-2149436197.jpg" alt="useravatar" class="slide-avatar">
+                <p class="slide-username"><?php echo htmlspecialchars($_SESSION['username'] ?? ''); ?></p>
+                <p class="slide-username"><?php echo htmlspecialchars($_SESSION['email']?? '');?></p>
+
+                <a href="update_details.php" class="slide-link">Update Details</a>
+                
+                <?php if (isset($_SESSION['username'])): ?>
+                <a href="logout.php" class="slide-link"><img class="logout-png" src="assets/logout.png" alt="Logout"></a>
             <?php else: ?>
                 <a href="login.php" class="btn login-btn">Login</a>
             <?php endif; ?>
-            
+            </div>
         </div>
     </header>
 
@@ -91,7 +110,6 @@ if (isset($_GET['search'])) {
             <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
             <a class="next" onclick="plusSlides(1)">&#10095;</a>
         </div>
-        <br>
         <div style="text-align:center">
             <span class="dot" onclick="currentSlide(1)"></span>
             <span class="dot" onclick="currentSlide(2)"></span>
@@ -146,11 +164,38 @@ if (isset($_GET['search'])) {
 
     <script>
         const menuIcon = document.getElementById('menu-icon');
-        const navbar = document.getElementById('navbar');
+const navbar = document.getElementById('navbar');
+const userAvatar = document.getElementById('user-avatar');
+const slideMenu = document.getElementById('slide-menu');
 
-        menuIcon.addEventListener('click', function() {
-            navbar.classList.toggle('active');
-        });
+// Toggle navbar on menu icon click
+menuIcon.addEventListener('click', function() {
+    navbar.classList.toggle('active');
+    console.log('Menu icon clicked');
+});
+
+// Toggle slide menu on user avatar click
+userAvatar.addEventListener('click', function(event) {
+    event.preventDefault();
+    event.stopPropagation(); // Prevent the click from bubbling up to the document
+    slideMenu.classList.toggle('active');
+    console.log('User avatar clicked');
+});
+
+// Prevent closing when clicking inside the slide menu
+slideMenu.addEventListener('click', function(event) {
+    event.stopPropagation();
+});
+
+// Close the slide menu when clicking outside of it
+document.addEventListener('click', function(e) {
+    if (slideMenu.classList.contains('active')) {
+        slideMenu.classList.remove('active');
+        console.log('Clicked outside of the slide menu');
+    }
+});
+
+
     </script>
 </body>
 </html>

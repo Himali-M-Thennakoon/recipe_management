@@ -10,16 +10,42 @@ if ($conn->connect_error) {
 if (isset($_GET['id'])) {
     $recipe_id = $_GET['id'];
 
-    // Query to fetch recipe details from the database
-    $sql = "SELECT title, description, image, ingredients FROM recipes WHERE id = ?";
+    
+    $sql = "SELECT title, description, image, ingredients, video, difficulty, category , tags FROM recipes WHERE id = ?";
+
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $recipe_id);
     $stmt->execute();
     $result = $stmt->get_result();
 
-    // Check if recipe is found
+   
     if ($result->num_rows > 0) {
         $recipe = $result->fetch_assoc();
+      
+        $difficulty = (int)$recipe['difficulty'];
+        $difficulty = max(1, min($difficulty, 5)); 
+
+        
+        switch ($difficulty) {
+            case 1:
+                $difficulty_color = "linear-gradient(to right, #4CAF50, #8BC34A)"; 
+                break;
+            case 2:
+                $difficulty_color = "linear-gradient(to right, #8BC34A, #FFEB3B)"; 
+                break;
+            case 3:
+                $difficulty_color = "linear-gradient(to right, #FFEB3B, #FF9800)"; 
+                break;
+            case 4:
+                $difficulty_color = "linear-gradient(to right, #FF9800, #FF5722)"; 
+                break;
+            case 5:
+                $difficulty_color = "linear-gradient(to right, #FF5722, #D32F2F)"; 
+                break;
+            default:
+                $difficulty_color = "linear-gradient(to right, #4CAF50, #8BC34A)"; 
+                break;
+        }
     } else {
         echo "Recipe not found!";
         exit;
@@ -33,7 +59,7 @@ if (isset($_GET['id'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['username'])) {
     $username = $_SESSION['username'];
     $comment = trim($_POST['comment']);
-    $rating = (int) $_POST['rating']; // Capture the rating
+    $rating = (int) $_POST['rating'];
 
     if (!empty($comment) && $rating >= 1 && $rating <= 5) { // Ensure rating is between 1 and 5
         $comment = htmlspecialchars($comment);
@@ -79,7 +105,6 @@ $conn->close();
             <a href="view_recipe.php">Home</a>
             <a href="about.php">About</a>
             <a href="#contact">Contact</a>
-            
         </nav>
         <div class="user-data-div">  
             <a href="#">
@@ -88,7 +113,7 @@ $conn->close();
             <span class="user-info"><?php echo htmlspecialchars($_SESSION['username'] ?? ''); ?></span>
             
             <?php if (isset($_SESSION['username'])): ?>
-                <a href="logout.php"><img class="logout-png" src="assets/logout.png" alt=""></a>
+                <a href="logout.php"><img class="logout-png" src="assets/logout.png" alt="Logout"></a>
             <?php else: ?>
                 <a href="login.php" class="btn login-btn">Login</a>
             <?php endif; ?>
@@ -114,6 +139,56 @@ $conn->close();
                 <?php endforeach; ?>
             </ul>
         </div>
+        <div class="recipe-description-section">
+            <h2>Category</h2>
+            <p><?php echo nl2br(htmlspecialchars($recipe['category'])); ?></p>
+        </div>
+        <div class="recipe-ingredients-section">
+            <h2>Tags</h2>
+            <ul>
+                <?php foreach (explode("\n", $recipe['tags']) as $tags): ?>
+                    <li><?php echo htmlspecialchars($tags); ?></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+        <!-- Recipe Video -->
+         <div class="video">
+            <?php if (!empty($recipe['video'])): ?>
+            <div class="video-section recipe-ingredients-section">
+                <h2>Recipe Video</h2>
+                <?php 
+                if (preg_match('/(youtube\.com|youtu\.be)/', $recipe['video'])):
+                    if (strpos($recipe['video'], 'watch?v=') !== false) {
+                        $video_url = str_replace("watch?v=", "embed/", $recipe['video']);
+                    } elseif (strpos($recipe['video'], 'youtu.be/') !== false) {
+                        $video_id = explode("youtu.be/", $recipe['video'])[1];
+                        $video_url = "https://www.youtube.com/embed/" . $video_id;
+                    } else {
+                        $video_url = $recipe['video'];
+                    }
+                ?>
+                    <iframe  src="<?php echo htmlspecialchars($video_url); ?>" 
+                        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <?php else: ?>
+                    <video controls>
+                        <source src="uploads/<?php echo htmlspecialchars($recipe['video']); ?>" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                <?php endif; ?>
+            </div>
+            <?php endif; ?>
+        </div>
+
+        <!-- Difficulty Bar with Gradient -->
+        <div class="difficulty">
+            <h3>Difficulty Level</h3>
+            <p><?php echo $difficulty; ?>/5</p>
+            <div class="difficulty-bar-container">
+                <!-- Apply the color gradient dynamically based on difficulty value -->
+                <div class="difficulty-bar" style="width: <?php echo $difficulty * 20; ?>%; background: <?php echo $difficulty_color; ?>;"></div>
+            </div>
+        </div>
+
     </div>
 
     <!-- Comments Section -->
@@ -130,33 +205,26 @@ $conn->close();
                     <input type="radio" name="rating" value="2" id="star2"><label for="star2" class="fa fa-star"></label>
                     <input type="radio" name="rating" value="1" id="star1"><label for="star1" class="fa fa-star"></label>
                 </div>
-
-                <button type="submit">Submit Comment</button>
+                
+                <button type="submit" class="btn submit-btn">Submit Comment</button>
             </form>
+            <?php if (!empty($error_message)): ?>
+                <p class="error-message"><?php echo htmlspecialchars($error_message); ?></p>
+            <?php endif; ?>
         <?php else: ?>
-            <p>Please <a href="login.php">login</a> to leave a comment.</p>
-        <?php endif; ?>
-
-        <?php if (isset($error_message)): ?>
-            <p style="color: red;"><?php echo htmlspecialchars($error_message); ?></p>
+            <p>You must be logged in to comment.</p>
         <?php endif; ?>
 
         <div class="approved-comments">
-            <?php if ($comments_result->num_rows > 0): ?>
-                <?php while ($comment = $comments_result->fetch_assoc()): ?>
-                    <div class="comment">
-                        <p><strong><?php echo htmlspecialchars($comment['username']); ?>:</strong> <?php echo htmlspecialchars($comment['comment']); ?></p>
-                        <div class="star-rating">
-                            <?php for ($i = 1; $i <= 5; $i++): ?>
-                                <span class="fa fa-star <?php echo $i <= $comment['rating'] ? 'checked' : ''; ?>"></span>
-                            <?php endfor; ?>
-                        </div>
-                    </div>
-                <?php endwhile; ?>
-            <?php else: ?>
-                <p>No approved comments yet.</p>
-            <?php endif; ?>
+            <?php while ($comment = $comments_result->fetch_assoc()): ?>
+                <div class="comment">
+                    <p><strong><?php echo htmlspecialchars($comment['username']); ?>:</strong> <?php echo nl2br(htmlspecialchars($comment['comment'])); ?></p>
+                    <p>Rating: <?php echo str_repeat("⭐", $comment['rating']); ?></p>
+                </div>
+            <?php endwhile; ?>
         </div>
     </div>
+
+   
 </body>
 </html>
