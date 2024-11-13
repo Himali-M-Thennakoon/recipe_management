@@ -1,13 +1,12 @@
 <?php
-$conn = new mysqli('localhost', 'root', '', 'recipe_management');
+include 'config.php';
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Fetch categories from the database (optional step if dynamic fetching is needed)
-$category_query = "SELECT * FROM categories";  
-$category_result = $conn->query($category_query);
+ 
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = mysqli_real_escape_string($conn, $_POST['title']);

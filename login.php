@@ -21,11 +21,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
        
         if (password_verify($password, $user['password'])) {
-            
             $_SESSION['username'] = $user['username'];
             $_SESSION['type'] = $user['type'];
             $_SESSION['email'] = $user['email'];
-
+            $_SESSION['avatar'] = $user['avatar']; // Store avatar path in session
         
             if ($user['type'] == 'admin') {
                 header('Location: admin_dashboard.php');
@@ -34,7 +33,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 header("Location: view_recipe.php");
                 exit();
             }
-        } else {
+        }
+         else {
             $error_message = "Incorrect password!";
         }
     } else {

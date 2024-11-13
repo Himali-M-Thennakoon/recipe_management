@@ -36,17 +36,20 @@ if (isset($_GET['search'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="view_recipe.css">
     <link rel ="stylesheet" href="navbar.css">
+    <link rel="stylesheet" href="footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <title>Recipes</title>
 </head>
 <body>
     <!-- Header -->
     <header class="header">
-        <a href="#" class="logo">Recipes</a>
+        <a href="#" class="logo">Recipe Hub</a>
         <i class="fa-solid fa-bars" id="menu-icon"></i>
         <nav class="navbar" id="navbar">
             <a href="#Home" class="active">Home</a>
             <a href="about.php">About</a>
-            <a href="#contact">Contact</a>
+           
             
             <!-- Search Form -->
             <form action="" method="GET" class="search-form">
@@ -58,29 +61,30 @@ if (isset($_GET['search'])) {
         <!-- User Info Section -->
         <div class="user-data-div">
             <a href="#" id="user-avatar">
-                <img src="https://img.freepik.com/free-psd/3d-illustration-person-with-long-hair_23-2149436197.jpg" alt="useravatar" class="user-avatar">
+                <!-- Display user avatar or a default avatar if none is available -->
+                <img src="<?php echo isset($_SESSION['avatar']) ? htmlspecialchars($_SESSION['avatar']) : 'assets/default-avatar.png'; ?>" alt="useravatar" class="user-avatar">
             </a>
             <span class="user-info"><?php echo htmlspecialchars($_SESSION['username'] ?? ''); ?></span>
-            
-            
         </div>
 
-        <!-- Slide-out Menu (Initially Hidden) -->
+        <!-- Slide-out Menu -->
         <div id="slide-menu" class="slide-menu">
             <div class="slide-menu-content">
-                <img src="https://img.freepik.com/free-psd/3d-illustration-person-with-long-hair_23-2149436197.jpg" alt="useravatar" class="slide-avatar">
+                <img src="<?php echo isset($_SESSION['avatar']) ? htmlspecialchars($_SESSION['avatar']) : 'assets/default-avatar.png'; ?>" alt="useravatar" class="slide-avatar">
                 <p class="slide-username"><?php echo htmlspecialchars($_SESSION['username'] ?? ''); ?></p>
-                <p class="slide-username"><?php echo htmlspecialchars($_SESSION['email']?? '');?></p>
-
-                <a href="update_details.php" class="slide-link">Update Details</a>
-                
+                <p class="slide-email"><?php echo htmlspecialchars($_SESSION['email'] ?? ''); ?></p>
+                <a href="update_user_by_user.php" class="slide-link">Update Details</a>
+                <?php if ($_SESSION['type'] == 'admin'): ?>
+                    <a href="admin_dashboard.php" class="slide-link">Dash Board</a>
+                <?php endif; ?>
                 <?php if (isset($_SESSION['username'])): ?>
-                <a href="logout.php" class="slide-link"><img class="logout-png" src="assets/logout.png" alt="Logout"></a>
-            <?php else: ?>
-                <a href="login.php" class="btn login-btn">Login</a>
-            <?php endif; ?>
+                    <a href="logout.php" class="slide-link"><img class="logout-png" src="assets/logout.png" alt="Logout"></a>
+                <?php else: ?>
+                    <a href="login.php" class="btn login-btn">Login</a>
+                <?php endif; ?>
             </div>
         </div>
+
     </header>
 
     <!-- Slideshow Banner Section -->
@@ -162,40 +166,53 @@ if (isset($_GET['search'])) {
         }
     </script>
 
-    <script>
-        const menuIcon = document.getElementById('menu-icon');
-const navbar = document.getElementById('navbar');
-const userAvatar = document.getElementById('user-avatar');
-const slideMenu = document.getElementById('slide-menu');
+            <script>
+                const menuIcon = document.getElementById('menu-icon');
+                const navbar = document.getElementById('navbar');
+                const userAvatar = document.getElementById('user-avatar');
+                const slideMenu = document.getElementById('slide-menu');
 
-// Toggle navbar on menu icon click
-menuIcon.addEventListener('click', function() {
-    navbar.classList.toggle('active');
-    console.log('Menu icon clicked');
-});
+                // Toggle navbar on menu icon click
+                menuIcon.addEventListener('click', function() {
+                    navbar.classList.toggle('active');
+                    console.log('Menu icon clicked');
+                });
 
-// Toggle slide menu on user avatar click
-userAvatar.addEventListener('click', function(event) {
-    event.preventDefault();
-    event.stopPropagation(); // Prevent the click from bubbling up to the document
-    slideMenu.classList.toggle('active');
-    console.log('User avatar clicked');
-});
+                // Toggle slide menu on user avatar click
+                userAvatar.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    event.stopPropagation(); // Prevent the click from bubbling up to the document
+                    slideMenu.classList.toggle('active');
+                    console.log('User avatar clicked');
+                });
 
-// Prevent closing when clicking inside the slide menu
-slideMenu.addEventListener('click', function(event) {
-    event.stopPropagation();
-});
+                // Prevent closing when clicking inside the slide menu
+                slideMenu.addEventListener('click', function(event) {
+                    event.stopPropagation();
+                });
 
-// Close the slide menu when clicking outside of it
-document.addEventListener('click', function(e) {
-    if (slideMenu.classList.contains('active')) {
-        slideMenu.classList.remove('active');
-        console.log('Clicked outside of the slide menu');
-    }
-});
+                // Close the slide menu when clicking outside of it
+                document.addEventListener('click', function(e) {
+                    if (slideMenu.classList.contains('active')) {
+                        slideMenu.classList.remove('active');
+                        console.log('Clicked outside of the slide menu');
+                    }
+                });
 
 
-    </script>
+            </script>
+            <!-- Footer -->
+<footer class="footer">
+    <div class="footer-content">
+        <p>&copy; <?php echo date("Y"); ?> Recipe Hub. All rights reserved.</p>
+        <div class="social-links">
+            <a href="https://www.facebook.com" target="_blank" class="social-icon"><i class="fa-brands fa-facebook"></i></a>
+            <a href="https://twitter.com" target="_blank" class="social-icon"><i class="fa-brands fa-twitter"></i></a>
+            <a href="https://www.instagram.com" target="_blank" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.linkedin.com" target="_blank" class="social-icon"><i class="fa-brands fa-linkedin"></i></a>
+        </div>
+    </div>
+</footer>
+
 </body>
 </html>

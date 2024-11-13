@@ -1,0 +1,81 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Nunito', sans-serif;
+}
+
+:root {
+    --bg-color: #090000cf;
+    --text-color: #d2b40b;
+    --main-color: #59B2f4;
+}
+
+body {
+    background: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Profile Update Container */
+.profile-update-container {
+    width: 100%;
+    max-width: 400px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+/* Profile Update Card */
+.profile-update-card {
+    text-align: center;
+}
+
+/* Avatar Section */
+.profile-avatar {
+    margin-bottom: 20px;
+}
+
+.avatar-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+input[type="file"] {
+    margin-top: 10px;
+}
+
+/* Input Fields */
+input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+}
+
+/* Submit Button */
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--main-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #4a9fe1;
+}
