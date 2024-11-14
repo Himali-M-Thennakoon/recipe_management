@@ -110,7 +110,7 @@ $conn->close();
         <div class="user-data-div">
             <a href="#" id="user-avatar">
                 <!-- Display user avatar or a default avatar if none is available -->
-                <img src="<?php echo isset($_SESSION['avatar']) ? htmlspecialchars($_SESSION['avatar']) : 'assets/default-avatar.png'; ?>" alt="useravatar" class="user-avatar">
+                <img src="<?php echo isset($_SESSION['avatar']) ? htmlspecialchars($_SESSION['avatar']) : 'assets/default.jpg'; ?>" alt="useravatar" class="user-avatar">
             </a>
             <span class="user-info"><?php echo htmlspecialchars($_SESSION['username'] ?? ''); ?></span>
         </div>
@@ -118,7 +118,7 @@ $conn->close();
         <!-- Slide-out Menu -->
         <div id="slide-menu" class="slide-menu">
             <div class="slide-menu-content">
-                <img src="<?php echo isset($_SESSION['avatar']) ? htmlspecialchars($_SESSION['avatar']) : 'assets/default-avatar.png'; ?>" alt="useravatar" class="slide-avatar">
+                <img src="<?php echo isset($_SESSION['avatar']) ? htmlspecialchars($_SESSION['avatar']) : 'assets/default.jpg'; ?>" alt="useravatar" class="slide-avatar">
                 <p class="slide-username"><?php echo htmlspecialchars($_SESSION['username'] ?? ''); ?></p>
                 <p class="slide-email"><?php echo htmlspecialchars($_SESSION['email'] ?? ''); ?></p>
                 <a href="update_user_by_user.php" class="slide-link">Update Details</a>

@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <form action="update_user_by_user.php" method="POST" enctype="multipart/form-data">
                 <div class="profile-avatar">
                     <!-- Display the current avatar or a default image if not set -->
-                    <img src="<?php echo !empty($user['avatar']) ? $user['avatar'] : 'default-avatar.png'; ?>" alt="Avatar" class="avatar-img">
+                    <img src="<?php echo !empty($user['avatar']) ? $user['avatar'] : 'assets/default.jpg'; ?>" alt="Avatar" class="avatar-img">
                     <input type="file" name="avatar" accept="image/*">
                 </div>
 
