@@ -14,6 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $ingredients = mysqli_real_escape_string($conn, $_POST['ingredients']);
     $video = mysqli_real_escape_string($conn, $_POST['video']);
     $difficulty = mysqli_real_escape_string($conn, $_POST['difficulty']);
+
+$Colour = mysqli_real_escape_string($conn,$_POST['Colour']);
     
  
 
@@ -30,8 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (in_array($imageFileType, $valid_extensions)) {
         if (move_uploaded_file($_FILES['image']['tmp_name'], $target_file)) {
-            $sql = "INSERT INTO recipes (title, description, ingredients, image, video, difficulty, category,tags) 
-                    VALUES ('$title', '$description', '$ingredients', '$image', '$video', '$difficulty', '$categories','$tags')";
+            $sql = "INSERT INTO recipes (title, description, ingredients, image, video, difficulty, category,tags,Colour) 
+                    VALUES ('$title', '$description', '$ingredients', '$image', '$video', '$difficulty', '$categories','$tags'$Colour)";
 
             if ($conn->query($sql) === TRUE) {
                 echo "<script type='text/javascript'>
@@ -92,6 +94,7 @@ $conn->close();
                     <input type="text" name="video" placeholder="Video Link" required> <!-- New video link input -->
                     <input type="text" name="difficulty" placeholder="Difficulty Level (1 to 5)" required>
 
+
                     
                     <!-- Multi-Select Dropdown -->
                     <!-- Multi-Select Dropdown for Categories -->
@@ -111,6 +114,7 @@ $conn->close();
                     </div>
                     <textarea name="tags" placeholder="tags(hit enter to separate)" rows="4" required></textarea>
                     
+<input type="text" name = "Colour" placeholder ="Colour" required >
 
 
 
